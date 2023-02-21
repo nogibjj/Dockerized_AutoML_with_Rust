@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 automl = "0.2.6"
 smartcore = "0.2.0"
+polars = "0.27.2"
