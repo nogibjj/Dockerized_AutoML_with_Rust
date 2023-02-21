@@ -26,6 +26,7 @@ fn load_custom_dataset() -> Result<DataFrame, PolarsError>  {
 }*/
 
 fn main() {
+
     let dataset = load_custom_dataset();
     // let dataset = smartcore::dataset::boston::load_dataset();
     let settings = automl::Settings::default_classification();
