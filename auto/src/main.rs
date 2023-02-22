@@ -1,5 +1,5 @@
-// use smartcore;
-use polars::prelude::*;
+//use smartcore;
+//use polars::prelude::*;
 
 /*struct DatasetName {
     name: String,
@@ -33,6 +33,27 @@ fn set_dataset_name(num: usize) -> Vec<&'static str> {
 
 
 }
+// create get user input function that returns an in
+fn get_user_input() -> usize {
+    // create variable named line that takes user input (string)
+    let mut line = String::new();
+    // create variable named b1 that takes user input (int)
+    let b1 = loop {
+        // take user input
+        std::io::stdin().read_line(&mut line).unwrap();
+        // convert user input to int
+        let b1: usize = line.trim().parse().unwrap();
+        // check if user input is valid
+        if b1 > 0 && b1 < 6 {
+            break b1;
+        } else {
+            println!("Invalid input. Please try again.");
+            line.clear();
+        }
+    };
+    println!("b1: {}", b1);
+    return b1 as usize;
+}
 
 fn get_dataset() -> String {
     // take user input to get dataset name
@@ -40,9 +61,8 @@ fn get_dataset() -> String {
     let mut line = String::new();
     println!("Select dataset from the following options (type number):");
     print_dataset_names();
-
-    let b1 = std::io::stdin().read_line(&mut line).unwrap();
-    let dataset_name = set_dataset_name(b1);
+    let num = get_user_input();
+    let dataset_name = set_dataset_name(num);
     println!("picked option {}", line);
     // return dataset_name
     dataset_name[0].to_string()
