@@ -1,11 +1,3 @@
-//use smartcore;
-//use polars::prelude::*;
-
-/*struct DatasetName {
-    name: String,
-    import_line: String,
-}*/
-
 fn print_dataset_names() {
     println!("1. boston");
     println!("2. breast_cancer");
@@ -14,10 +6,7 @@ fn print_dataset_names() {
     println!("5. iris");
 }
 
-// create set_dataset_name function which takes an i32 number as parameter
-// and returns a vector of strings
-
-fn set_dataset_name(num: usize) -> Vec<&'static str> {
+fn set_dataset_name(num: i32) -> Vec<&'static str> {
     // set dataset name based on user input
     // return dataset_name
     let output = match num {
@@ -33,8 +22,8 @@ fn set_dataset_name(num: usize) -> Vec<&'static str> {
 
 
 }
-// create get user input function that returns an in
-fn get_user_input() -> usize {
+// create get user input function that returns an i32
+fn get_user_input() -> i32 {
     // create variable named line that takes user input (string)
     let mut line = String::new();
     // create variable named b1 that takes user input (int)
@@ -52,13 +41,13 @@ fn get_user_input() -> usize {
         }
     };
     println!("b1: {}", b1);
-    return b1 as usize;
+    b1 as i32
 }
 
 fn get_dataset() -> String {
     // take user input to get dataset name
     // return dataset_name
-    let mut line = String::new();
+    let line = String::new();
     println!("Select dataset from the following options (type number):");
     print_dataset_names();
     let num = get_user_input();
@@ -68,20 +57,11 @@ fn get_dataset() -> String {
     dataset_name[0].to_string()
 }
 
-/*fn load_custom_dataset() -> Result<DataFrame, PolarsError> {
-    // load in spam.csv into polars df
-    let df = CsvReader::from_path("../example_data/iris_clean.csv")
-        .unwrap()
-        .finish()
-        .unwrap();
-    println!("{}", df.head(Some(5)));
-    Ok(df)
-}*/
-
 fn main() {
     //let dataset = load_custom_dataset();
     let name = get_dataset();
     println!("dataset: {:?}", name);
+    println!("running automl classifiers...")
     /*
     format + lint after copilot suggestion
     */
@@ -105,12 +85,3 @@ fn main() {
     classifier.train();
     print!("{}", classifier);
 }
-
-// old code - working as intended for hardcoded dataset
-/*fn main() {
-    let dataset = smartcore::dataset::boston::load_dataset();
-    let settings = automl::Settings::default_classification();
-    let mut classifier = automl::SupervisedModel::new(dataset, settings);
-    classifier.train();
-    print!("{}", classifier);
-}*/
