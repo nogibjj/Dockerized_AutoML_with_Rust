@@ -1,3 +1,6 @@
+use smartcore;
+use automl;
+
 fn print_dataset_names() {
     println!("1. boston");
     println!("2. breast_cancer");
@@ -61,7 +64,7 @@ fn main() {
     //let dataset = load_custom_dataset();
     let name = get_dataset();
     println!("dataset: {:?}", name);
-    println!("running automl classifiers...")
+    println!("running automl classifiers...");
     /*
     format + lint after copilot suggestion
     */
