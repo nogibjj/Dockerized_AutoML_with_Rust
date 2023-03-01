@@ -1,26 +1,42 @@
-#FROM rust:latest
+# help from https://alexbrand.dev/post/how-to-package-rust-applications-into-minimal-docker-containers/
+# Dockerfile for creating a statically-linked Rust application using docker's
+# multi-stage build feature. This also leverages the docker build cache to avoid
+# re-downloading dependencies if they have not changed.
+FROM rust:latest AS build
+WORKDIR /usr/src
 
-#WORKDIR /usr/src/app
+# Download the target for static linking.
+RUN rustup target add x86_64-unknown-linux-musl
 
-#COPY auto/ .
+# Create a dummy project and build the app's dependencies.
+# If the Cargo.toml or Cargo.lock files have not changed,
+# we can use the docker build cache and skip these (typically slow) steps.
+RUN USER=root cargo new automl
+WORKDIR /usr/src/automl
+COPY Cargo.toml ./
+RUN cargo build --release
 
-#RUN cargo build --release
+# Copy the source and build the application.
+COPY src ./src
+RUN cargo install --target x86_64-unknown-linux-musl --path .
 
-#CMD ./target/release/auto
+# Copy the statically-linked binary into a scratch container.
+FROM scratch
+COPY --from=build /usr/local/cargo/bin/automl .
+USER 1000
+CMD ["./automl"]
 
-#FROM scratch
-#COPY /auto/target/release/auto /auto
-#CMD [./auto]
 
 
-FROM rust:latest as builder
+
+#FROM rust:latest as builder
 #ENV APP auto
-WORKDIR /usr/src/$APP
-COPY . .
-RUN cargo install --path .
+#WORKDIR /usr/src/$APP
+#COPY . .
+#RUN cargo install --path .
  
-FROM debian:buster-slim
-RUN apt-get update && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /usr/local/cargo/bin/$APP /usr/local/bin/$APP/target/release/auto
+#FROM debian:buster-slim
+#RUN apt-get update # && rm -rf /var/lib/apt/lists/*
+#COPY --from=builder /usr/$APP /usr/local/bin/$APP/target/release/auto
 #export this actix web service to port 8080 and 0.0.0.0
-CMD [cargo run --release]
+#CMD [cargo run --release]
