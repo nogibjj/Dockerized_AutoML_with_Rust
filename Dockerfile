@@ -40,3 +40,9 @@ CMD ["./automl"]
 #COPY --from=builder /usr/$APP /usr/local/bin/$APP/target/release/auto
 #export this actix web service to port 8080 and 0.0.0.0
 #CMD [cargo run --release]
+
+
+#two deploys from same project
+#web.rs and lib.rs
+#web.rs - docker only takes this
+# two ways to talk to same piece of code
