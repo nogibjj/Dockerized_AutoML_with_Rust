@@ -12,3 +12,6 @@ path = "src/main.rs"
 [dependencies]
 automl = "0.2.6"
 smartcore = "0.2.1"
+actix-web = "4"
+
+
