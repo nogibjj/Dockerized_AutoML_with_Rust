@@ -11,10 +11,7 @@ Cargo.lock
 
 # target
 auto/target
-fullstack/backend/target
-fullstack/frontend/target
-fullstack/common/target
-fullstack/target
+actix/target
 
 # docker credentials
 /home/codespace/.docker/config.json
