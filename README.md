@@ -1,13 +1,25 @@
-# AutoML_Kubernetes
-Utilizing Rust to build an AutoML application. Will be deployed to a Kubernetes service
+## Auto ML tool with Rust and Docker
 
-## plan going forward
-- take boiler plate code from automl crate - automate it as much as i can
-    - choose from a variety of datasets? input your own data?
-    - pick dataset from smartcore options in cmd line tool format?
-- get all models back, make a function to choose the best one
-    - host model on a cloud service, then predict?
-    - serve predictions to some other cloud env?
+## How to run:
 
-## end goal
-command line tool that you can pass any (cleaned) dataset into (already ohe'd, correct format, target specified, etc) and automl (only classifier for now) runs all models on it. somehow i'd like to get this deployed as a kubernetes service
+### Option 1: run locally
+1. Clone repository
+```
+git clone https://github.com/nogibjj/Dockerized_AutoML_with_Rust.git
+```
+
+2. Run program
+```
+Cargo run -r
+```
+
+### Option 2: Docker container
+1. Pull docker image
+```
+docker pull alexbzdel/automl_rust
+```
+
+2. Run container
+```
+docker run -it alexbzdel/automl_rust
+```
